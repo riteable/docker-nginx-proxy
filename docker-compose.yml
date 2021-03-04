@@ -1,34 +1,24 @@
 version: "3.7"
 
 services:
-  proxy-server:
+  server:
     image: jwilder/nginx-proxy:alpine
-    ports:
-      - target: 80
-        published: 80
-        mode: host
-      - target: 443
-        published: 443
-        mode: host
     labels:
       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
     volumes:
-      - ~/certs:/etc/nginx/certs:ro
+      - ./certs:/etc/nginx/certs
       - ./vhost.d:/etc/nginx/vhost.d:ro
       - ./conf.d:/etc/nginx/conf.d
-      - ./proxy.conf:/etc/nginx/proxy.conf
-      - html:/usr/share/nginx/html
+      - ./proxy.conf:/etc/nginx/proxy.conf:ro
       - ./htpasswd:/etc/nginx/htpasswd
+      - html:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
-      - proxy-network
-    deploy:
-      mode: global
+      - proxy
 
 volumes:
   html:
 
 networks:
-  proxy-network:
+  proxy:
     name: "${NETWORK}"
-    driver: overlay

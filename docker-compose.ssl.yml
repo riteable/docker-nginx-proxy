@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  ssl:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    volumes:
+      - ./certs:/etc/nginx/certs
+      - ./vhost.d:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - proxy
+    deploy:
+      mode: global

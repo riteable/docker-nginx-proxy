@@ -1,13 +1,6 @@
-# HTTP Proxy
+# Docker Nginx Proxy
 
-A reverse proxy based on Nginx and LetsEncrypt using Docker containers.
-
-## Requirements
-
-- Docker
-- Docker Compose
-- htpasswd
-- openssl
+A reverse proxy based on Nginx and LetsEncrypt using Docker.
 
 ## Setup
     
@@ -21,19 +14,19 @@ In your development environment, add host in `/etc/hosts` file:
     
 ## Usage
 
-To start the server without SSL support (during development, for example):
+To start the server without LetsEncrypt SSL (during development):
 
 ```
-$ docker-compose up
+$ make up
 ```
 
-To start the server with SSL (LetsEncrypt) for production:
+To start the server with SSL in Swarm mode for production:
 
 ```
-$ docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
+$ make deploy-ssl
 ```
 
-See **letsencrypt-nginx-proxy-companion** [docs](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion#step-3---proxyed-containers) for an example.
+Look inside the `Makefile` for more convenient commands.
 
 ## Basic auth
 
@@ -84,3 +77,7 @@ Virtual host config can be placed inside the `vhost.d` directory, with `your-dom
 server_tokens off;
 client_max_body_size 10m;
 ```
+
+## More info
+
+See [nginx-proxy](https://github/nginx-proxy/nginx-proxy) and [docker-letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion) for more info.
