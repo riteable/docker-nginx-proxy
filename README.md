@@ -30,10 +30,9 @@ Look inside the `Makefile` for more convenient commands.
 
 ## Basic auth
 
-Create a `htpasswd` directory and generate username/password with the `htpasswd` utility:
+`cd` inside the root of this project, and then generate username/password with the `htpasswd` utility:
 
 ```
-$ mkdir htpasswd
 $ htpasswd -Bc htpasswd/your-domain your-username
 ```
 
